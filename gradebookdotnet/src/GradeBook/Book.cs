@@ -1,32 +1,16 @@
 namespace GradeBook
 {
-  public class Book {
+  public abstract class Book : NamedObject
+  {
 
-    public Book(string name)
+    public Book(string name) : base(name)
     {
-      this.Name = name;
       this.Grades = new List<Grade>() {};
     }
     
-    public Book(string name, List<Grade> grades)
+    public Book(string name, List<Grade> grades) : base(name)
     {
-      this.Name = name;
       this.Grades = grades;
-    }
-
-
-    public void AddGrade(double grade)
-    {
-      Grades.Add(new Grade(grade));
-    }
-
-    public void AddGrade(Grade grade)
-    {
-      Grades.Add(grade);
-      if (GradeAdded != null)
-      {
-        GradeAdded(this, new EventArgs());
-      }
     }
 
     public void ShowStatistics()
@@ -39,7 +23,7 @@ namespace GradeBook
       Console.WriteLine($"The letter grade is {res.letterGrade}");
     }
 
-    public 
+    public virtual
     (double average, double lowGrade, double highGrade, char letterGrade) 
     GetStatistics()
     {
@@ -60,9 +44,15 @@ namespace GradeBook
       return (average, lowGrade, highGrade, letterGrade);
     }
 
-    public event GradeAddedDelegate GradeAdded;
+    protected void FireGradeAddedEvent() {
+      if (GradeAdded != null)
+      {
+        GradeAdded(this, new EventArgs());
+      }
+    }
+
+    public event GradeAddedDelegate? GradeAdded;
 
     public readonly List<Grade> Grades;
-    public string Name;
   }
 }

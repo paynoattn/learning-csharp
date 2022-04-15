@@ -19,7 +19,7 @@
     }
 
     static void RunWithName(string[] args) {
-      var book = new Book(args[0]);
+      var book = new InMemoryBook(args[0]);
       book.GradeAdded += OnGradedAdded;
 
       while (true)
@@ -66,7 +66,7 @@
         var grades = gradeStrings
           .ConvertAll<Grade>(str => new Grade(str));
         
-        var book = new Book(name, grades);
+        var book = new InMemoryBook(name, grades);
         book.ShowStatistics();
       }
       catch (Exception ex) {
