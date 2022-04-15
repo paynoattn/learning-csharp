@@ -45,8 +45,7 @@ namespace GradeBook
         this.Points = grade;
       }
       else {
-        this.Points = 0;
-        Console.WriteLine($"You entered an invalid grade. Expected nuber between 0 and 100 and recieved {grade}");
+        throw new ArgumentException($"Invalid {nameof(grade)}, expected a number 99.9");
       }
     }
 
@@ -73,8 +72,8 @@ namespace GradeBook
       }
       else
       {
-        this.Points = 0;
-        Console.WriteLine($"You may have passed an invalid grade. You passed {str} but we expected a number like 90.1 or a letter like A");
+        
+        throw new ArgumentException($"You may have passed an invalid grade. You passed {str} but we expected a number like 90.1 or a letter like A");
       }
     }
 

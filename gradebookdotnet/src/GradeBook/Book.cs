@@ -20,6 +20,15 @@ namespace GradeBook
       Grades.Add(new Grade(grade));
     }
 
+    public void AddGrade(Grade grade)
+    {
+      Grades.Add(grade);
+      if (GradeAdded != null)
+      {
+        GradeAdded(this, new EventArgs());
+      }
+    }
+
     public void ShowStatistics()
     {
       var res = GetStatistics();
@@ -50,6 +59,8 @@ namespace GradeBook
 
       return (average, lowGrade, highGrade, letterGrade);
     }
+
+    public event GradeAddedDelegate GradeAdded;
 
     public readonly List<Grade> Grades;
     public string Name;
